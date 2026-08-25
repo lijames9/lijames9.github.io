@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>James Li — Quantitative Research</title>
-<meta name="description" content="Quantitative research portfolio of James Li — M.S. Quantitative Finance, Fordham Gabelli. Statistical modeling, risk, and derivatives projects in C++ and Python.">
+<title>James Li · Quantitative Research</title>
+<meta name="description" content="Quantitative research portfolio of James Li, M.S. Quantitative Finance, Fordham Gabelli. Statistical modeling, risk, and derivatives projects in C++ and Python.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -266,7 +266,7 @@
   <div class="wrap hero-inner">
     <span class="eyebrow">dSₜ = θ(μ − Sₜ)dt + σdWₜ</span>
     <h1 class="title">The math underneath the market.</h1>
-    <p class="hero-sub">James Li — quantitative research, where stochastic models meet the machinery that makes them tradeable.</p>
+    <p class="hero-sub">James Li: quantitative research, where stochastic models meet the machinery that makes them tradeable.</p>
     <div class="ticker">
       <span>M.S. QUANT FINANCE, FORDHAM UNIVERSITY</span>
       <span>B.A.SC ENGINEERING SCIENCE, U OF TORONTO</span>
@@ -279,7 +279,7 @@
 
   <section id="about">
     <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">01 — ABOUT</span></div>
+      <div class="section-head reveal"><span class="eyebrow">01 / ABOUT</span></div>
       <p class="reveal">
         My background sits at the intersection of <strong>engineering, applied statistics, and finance</strong> with
         a B.A.Sc. in Engineering Science from the University of Toronto (concentration in mathematics, statistics,
@@ -293,7 +293,7 @@
 
   <section id="projects">
     <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">02 — PROJECTS</span></div>
+      <div class="section-head reveal"><span class="eyebrow">02 / PROJECTS</span></div>
       <div class="project-grid">
 
         <div class="card reveal">
@@ -301,7 +301,7 @@
           <h3>Statistical Arbitrage Engine</h3>
           <p>Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair
           selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based
-          position sizing — backtested on an event-driven simulator.</p>
+          position sizing, backtested on an event-driven simulator.</p>
           <div class="tags">
             <span class="tag">C++</span><span class="tag">Eigen</span><span class="tag">Kalman Filter</span>
             <span class="tag">GARCH</span><span class="tag">Cointegration</span>
@@ -329,6 +329,24 @@
         </div>
 
         <div class="card reveal">
+          <span class="eyebrow">BS = (1/N) Σ (p_i − o_i)²</span>
+          <h3>NBA Betting Market Efficiency Model</h3>
+          <p>Logistic regression and gradient-boosting models predicting NBA game outcomes from leakage-safe
+          rolling team-performance and injury-absence features, benchmarked against de-vigged sportsbook
+          lines via Brier score, log-loss, and calibration. A backtest on a held-out final season, run
+          through a custom C++ engine, found no configuration with a real, validated edge against
+          closing or opening lines. Market efficiency held up under testing.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">C++</span>
+            <span class="tag">Logistic Regression</span><span class="tag">Backtesting</span>
+          </div>
+          <div class="card-foot">
+            <span class="status"><span class="dot built"></span>Built</span>
+            <a href="https://github.com/lijames9/outcome_predictor" target="_blank" rel="noopener">View on GitHub →</a>
+          </div>
+        </div>
+
+        <div class="card reveal">
           <span class="eyebrow">C = e^(−rT) E[(A_T − K)⁺]</span>
           <h3>Stochastic Modeling &amp; Asian Option Pricer</h3>
           <p>Monte Carlo pricer for path-dependent derivatives (Asian, barrier options) using GBM simulation,
@@ -348,7 +366,7 @@
           <span class="eyebrow">min ‖wᵀR − R_bench‖</span>
           <h3>Bond Index Portfolio Optimizer</h3>
           <p>Optimizer minimizing tracking error against the ICE Treasury Bond Index using momentum ranking,
-          dynamic asset allocation, and key-rate duration matching — achieved 3.7% annualized tracking error
+          dynamic asset allocation, and key-rate duration matching, achieving 3.7% annualized tracking error
           within 2.3% of benchmark return.</p>
           <div class="tags">
             <span class="tag">Python</span><span class="tag">CVXPY</span><span class="tag">Optimization</span>
@@ -365,21 +383,21 @@
 
   <section id="experience">
     <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">03 — EXPERIENCE</span></div>
+      <div class="section-head reveal"><span class="eyebrow">03 / EXPERIENCE</span></div>
 
       <div class="exp-item reveal">
-        <div class="exp-meta">SEP 2025 — APR 2026<br>Toronto, Canada</div>
+        <div class="exp-meta">SEP 2025 → APR 2026<br>Toronto, Canada</div>
         <div class="exp-role">
           <span class="org">FIDELITY INVESTMENTS</span>
           <h3>Product Researcher, Finance &amp; Corporate Services</h3>
           <p>Built an AI pipeline automating QA for multilingual financial documents, integrating parsing
-          and semantic validation for unstructured fund documentation — 96% accuracy and 99.6% recall
+          and semantic validation for unstructured fund documentation, reaching 96% accuracy and 99.6% recall
           across 1,500+ documents.</p>
         </div>
       </div>
 
       <div class="exp-item reveal">
-        <div class="exp-meta">AUG 2024 — AUG 2025<br>Toronto, Canada</div>
+        <div class="exp-meta">AUG 2024 → AUG 2025<br>Toronto, Canada</div>
         <div class="exp-role">
           <span class="org">VENA SOLUTIONS</span>
           <h3>Associate Solutions Manager, PreSales</h3>
@@ -390,7 +408,7 @@
       </div>
 
       <div class="exp-item reveal">
-        <div class="exp-meta">MAY 2023 — APR 2024<br>Toronto, Canada</div>
+        <div class="exp-meta">MAY 2023 → APR 2024<br>Toronto, Canada</div>
         <div class="exp-role">
           <span class="org">MORLAB, UNIVERSITY OF TORONTO</span>
           <h3>Machine Learning Research Intern</h3>
@@ -403,7 +421,7 @@
 
   <section id="skills">
     <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">04 — CAPABILITIES</span></div>
+      <div class="section-head reveal"><span class="eyebrow">04 / CAPABILITIES</span></div>
       <div class="skill-grid">
         <div class="skill-col reveal">
           <span class="eyebrow">LANGUAGES</span>
@@ -427,7 +445,7 @@
 
   <section id="contact">
     <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">05 — CONTACT</span></div>
+      <div class="section-head reveal"><span class="eyebrow">05 / CONTACT</span></div>
       <div class="contact-row reveal">
         <a href="mailto:jl514@fordham.edu">jl514@fordham.edu</a>
         <a href="https://linkedin.com/in/lijames663" target="_blank" rel="noopener">LinkedIn</a>
