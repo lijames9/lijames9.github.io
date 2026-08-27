@@ -138,6 +138,7 @@
   section:last-of-type{border-bottom:none;}
   .section-head{margin-bottom:36px;}
   .section-head h2{font-size:1.6rem;}
+  .section-head .eyebrow{font-size:0.95rem;}
 
   #about p{
     max-width:66ch;
@@ -327,38 +328,6 @@
       <div class="project-grid">
 
         <div class="card reveal">
-          <span class="eyebrow">dSₜ = θ(μ − Sₜ)dt + σdWₜ</span>
-          <h3>Statistical Arbitrage Engine</h3>
-          <p>Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair
-          selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based
-          position sizing, backtested on an event-driven simulator.</p>
-          <div class="tags">
-            <span class="tag">C++</span><span class="tag">Eigen</span><span class="tag">Kalman Filter</span>
-            <span class="tag">GARCH</span><span class="tag">Cointegration</span>
-          </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot wip"></span>In progress</span>
-            <span class="soon">repo coming soon</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="eyebrow">CVaRα(X) = E[X | X ≤ VaRα(X)]</span>
-          <h3>Portfolio Tail-Risk Engine</h3>
-          <p>Copula-based VaR/CVaR engine in C++ comparing Gaussian, Student-t, and Clayton copulas over
-          GARCH-filtered marginals. Monte Carlo and historical simulation, backtested against realized
-          breaches with Kupiec and Christoffersen tests.</p>
-          <div class="tags">
-            <span class="tag">C++</span><span class="tag">Copulas</span><span class="tag">Monte Carlo</span>
-            <span class="tag">GARCH</span><span class="tag">Backtesting</span>
-          </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot wip"></span>In progress</span>
-            <span class="soon">repo coming soon</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
           <span class="eyebrow">BS = (1/N) Σ (p_i − o_i)²</span>
           <h3>NBA Betting Market Efficiency Model</h3>
           <p>Logistic regression and gradient-boosting models predicting NBA game outcomes from leakage-safe
@@ -422,6 +391,38 @@
           <div class="card-foot">
             <span class="status"><span class="dot built"></span>Built</span>
             <a href="https://github.com/lijames9/GroceryPricePredictor" target="_blank" rel="noopener">View on GitHub →</a>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <span class="eyebrow">dSₜ = θ(μ − Sₜ)dt + σdWₜ</span>
+          <h3>Statistical Arbitrage Engine</h3>
+          <p>Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair
+          selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based
+          position sizing, backtested on an event-driven simulator.</p>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">Eigen</span><span class="tag">Kalman Filter</span>
+            <span class="tag">GARCH</span><span class="tag">Cointegration</span>
+          </div>
+          <div class="card-foot">
+            <span class="status"><span class="dot wip"></span>In progress</span>
+            <span class="soon">repo coming soon</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <span class="eyebrow">CVaRα(X) = E[X | X ≤ VaRα(X)]</span>
+          <h3>Portfolio Tail-Risk Engine</h3>
+          <p>Copula-based VaR/CVaR engine in C++ comparing Gaussian, Student-t, and Clayton copulas over
+          GARCH-filtered marginals. Monte Carlo and historical simulation, backtested against realized
+          breaches with Kupiec and Christoffersen tests.</p>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">Copulas</span><span class="tag">Monte Carlo</span>
+            <span class="tag">GARCH</span><span class="tag">Backtesting</span>
+          </div>
+          <div class="card-foot">
+            <span class="status"><span class="dot wip"></span>In progress</span>
+            <span class="soon">repo coming soon</span>
           </div>
         </div>
 
