@@ -1,587 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>James Li · Quantitative Research</title>
-<meta name="description" content="Quantitative research portfolio of James Li, M.S. Quantitative Finance, Fordham Gabelli. Statistical modeling, risk, and derivatives projects in C++ and Python.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>James Li — Quantitative Research</title>
+<meta name="description" content="James Li — M.S. Quantitative Finance at Fordham. Quantitative research: models that hold up when you backtest and stress them.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#EEF0F2;
-    --paper-alt:#E3E6EA;
-    --ink:#14171C;
-    --ink-soft:#4B515C;
-    --ink-faint:#7B818C;
-    --gold:#9C6E1F;
-    --gold-soft:#B8873A;
-    --navy:#253858;
-    --crimson:#8C3B3B;
-    --rule:#C7CBD1;
-    --max:1080px;
-  }
+:root{
+  --bg:#EEF0F2; --panel:#E3E6EA; --ink:#14171C; --muted:#4B515C; --dim:#7B818C;
+  --rule:#C7CBD1; --gold:#9C6E1F; --red:#8C3B3B; --navy:#253858;
+  --cream:#F4EFE6; --seen:#E9E5DC; --seen-border:#B9A98A; --faint:#A9AEB6;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --serif:Spectral,Georgia,serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--gold); text-decoration:none}
+a:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--serif); font-weight:600; margin:0}
+p{margin:0; text-wrap:pretty}
+:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+::selection{background:rgba(156,110,31,.22)}
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+.wrap{max-width:1080px; margin:0 auto; padding:0 clamp(20px,5vw,56px)}
+.mono{font-family:var(--mono)}
 
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:16px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+/* header */
+.topbar{border-bottom:1px solid var(--rule)}
+.topbar .wrap{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; padding-top:18px; padding-bottom:18px}
+.topbar .name{font-family:var(--mono); font-size:14px; letter-spacing:.04em}
+.topbar .sub{font-family:var(--mono); font-size:11px; color:var(--dim)}
 
-  .wrap{max-width:var(--max); margin:0 auto; padding:0 28px;}
+/* icon links */
+.icons{display:flex; align-items:center; gap:14px; color:var(--muted)}
+.icons a{display:flex; color:var(--muted)}
+.icons a:hover{color:var(--gold)}
+.icons svg{width:18px; height:18px}
 
-  h1,h2,h3{
-    font-family:'Spectral', serif;
-    font-weight:600;
-    margin:0;
-    color:var(--ink);
-  }
+/* buttons */
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 14px;
+  border:1px solid var(--gold); border-radius:3px; background:transparent;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.05em;
+  color:var(--gold); cursor:pointer; text-transform:uppercase;
+}
+.btn:hover{background:var(--gold); color:var(--bg)}
+.btn svg{width:14px; height:14px}
 
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.78rem;
-    letter-spacing:0.02em;
-    color:var(--gold);
-  }
+/* ── résumé view ─────────────────────────────── */
+.resume{padding:44px 0 52px}
+.resume h1{font-size:clamp(28px,4.5vw,34px); margin-bottom:6px}
+.idline{display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:26px}
+.idline .role{font-family:var(--mono); font-size:12px; color:var(--dim)}
+.idline .div{width:1px; height:16px; background:var(--rule)}
+.idline .cv{margin-left:auto}
+.lede{font-size:15px; line-height:1.7; color:var(--muted); max-width:74ch; margin-bottom:28px}
 
-  a{color:var(--navy);}
+.resume h2{font-size:19px; margin:0 0 12px}
+.rows{display:flex; flex-direction:column; margin-bottom:28px}
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:sticky; top:0; z-index:20;
-    background:rgba(238,240,242,0.86);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--rule);
-  }
-  nav .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    height:56px;
-  }
-  .nav-name{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.85rem;
-    font-weight:500;
-    letter-spacing:0.01em;
-  }
-  .nav-right{display:flex; align-items:center; gap:26px;}
-  .nav-links{display:flex; gap:26px; list-style:none; margin:0; padding:0;}
-  .nav-links a{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.78rem;
-    text-decoration:none;
-    color:var(--ink-soft);
-    letter-spacing:0.02em;
-  }
-  .nav-links a:hover{color:var(--gold);}
-  .nav-social{
-    display:flex; align-items:center; gap:14px;
-    padding-left:20px; border-left:1px solid var(--rule);
-  }
-  .nav-social a{color:var(--ink-soft); display:flex;}
-  .nav-social a:hover{color:var(--gold);}
-  .nav-social svg{width:16px; height:16px;}
-  @media (max-width:640px){
-    .nav-right{gap:14px;}
-    .nav-links{gap:14px;} .nav-links a{font-size:0.7rem;}
-    .nav-social{gap:10px; padding-left:12px;}
-    .nav-social svg{width:14px; height:14px;}
-  }
+.prow{
+  display:grid; grid-template-columns:280px 1fr 96px 92px; gap:20px; align-items:baseline;
+  padding:11px 0; border-top:1px solid var(--rule); font-size:14px; color:var(--muted);
+}
+.rows .prow:last-child{border-bottom:1px solid var(--rule)}
+.prow .pname{color:var(--ink)}
+.prow .pstack{font-family:var(--mono); font-size:11px}
+.prow .plink{font-family:var(--mono); font-size:10.5px; letter-spacing:.04em; justify-self:end; white-space:nowrap}
+.prow .plink.soon{color:#9AA0AA}
+.prow a.plink:hover{text-decoration:underline}
 
-  /* ---------- HERO ---------- */
-  header.hero{
-    position:relative;
-    padding:88px 0 64px;
-    border-bottom:1px solid var(--rule);
-    overflow:hidden;
-  }
-  .hero-spark{
-    position:absolute;
-    top:0; left:0; width:100%; height:100%;
-    opacity:0.55;
-    pointer-events:none;
-  }
-  .hero-inner{position:relative; z-index:1;}
-  .hero .eyebrow{display:block; margin-bottom:18px;}
-  h1.title{
-    font-size:clamp(2.4rem, 6vw, 4.1rem);
-    line-height:1.05;
-    max-width:14ch;
-  }
-  .hero-sub{
-    font-family:'Spectral', serif;
-    font-style:italic;
-    font-weight:400;
-    font-size:clamp(1.05rem, 2.2vw, 1.35rem);
-    color:var(--ink-soft);
-    margin-top:18px;
-    max-width:44ch;
-  }
-  .ticker{
-    margin-top:34px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.82rem;
-    color:var(--ink-faint);
-    display:flex; flex-wrap:wrap; gap:10px;
-  }
-  .ticker span:not(:last-child)::after{content:"·"; margin-left:10px; color:var(--rule);}
+.xrow{display:grid; grid-template-columns:160px 1fr; gap:20px; padding:13px 0; border-top:1px solid var(--rule)}
+.rows .xrow:last-child{border-bottom:1px solid var(--rule)}
+.xrow .when{font-family:var(--mono); font-size:11px; color:var(--dim)}
+.xrow .what{font-size:15px}
+.xrow .note{margin-top:4px; font-size:13.5px; line-height:1.6; color:var(--muted)}
 
-  /* ---------- SECTIONS ---------- */
-  section{padding:64px 0; border-bottom:1px solid var(--rule);}
-  section:last-of-type{border-bottom:none;}
-  .section-head{margin-bottom:36px;}
-  .section-head h2{font-size:1.6rem;}
-  .section-head .eyebrow{font-size:0.95rem;}
+.trow{display:grid; grid-template-columns:120px 1fr; gap:20px; padding:11px 0; border-top:1px solid var(--rule)}
+.rows .trow:last-child{border-bottom:1px solid var(--rule)}
+.trow .tk{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--dim)}
+.trow .tv{font-size:14px; color:var(--muted)}
 
-  #about p{
-    max-width:66ch;
-    font-size:1.02rem;
-    color:var(--ink-soft);
-  }
-  #about p strong{color:var(--ink); font-weight:600;}
+.foot{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  margin-top:40px; padding-top:16px; border-top:1px solid var(--rule)}
+.foot .sig{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:#9AA0AA}
 
-  /* ---------- PROJECTS ---------- */
-  .project-grid{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:22px;
-  }
-  @media (max-width:760px){ .project-grid{grid-template-columns:1fr;} }
+.banner{display:none; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+  margin-bottom:32px; padding:18px 22px; border:1px solid var(--gold); background:var(--cream)}
+.banner.on{display:flex}
+.banner .k{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--gold)}
+.banner p{margin-top:8px; font-family:var(--serif); font-size:17px; line-height:1.5; max-width:62ch}
 
-  .card{
-    border:1px solid var(--rule);
-    background:var(--paper-alt);
-    padding:26px 26px 22px;
-    display:flex; flex-direction:column;
-    transition:border-color 0.2s ease, transform 0.2s ease;
-  }
-  .card:hover{border-color:var(--gold-soft); transform:translateY(-2px);}
+/* ── board view ──────────────────────────────── */
+.board{display:none; padding:32px 0 40px}
+body[data-view="board"] .board{display:block}
+body[data-view="board"] .resume{display:none}
+.boardgrid{display:grid; grid-template-columns:1fr 400px; gap:0 34px; align-items:start}
 
-  .card .eyebrow{
-    font-size:0.8rem;
-    margin-bottom:14px;
-    word-break:break-word;
-    line-height:1.5;
-  }
-  .card h3{font-size:1.18rem; margin-bottom:10px;}
-  .card p{color:var(--ink-soft); font-size:0.94rem; margin:0 0 16px;}
+.track{position:relative; display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:104px; gap:16px 18px}
+.sp{
+  position:relative; border:1px solid var(--rule); background:var(--bg); cursor:pointer;
+  padding:12px; display:flex; flex-direction:column; justify-content:space-between;
+  transition:background .18s, border-color .18s;
+}
+.sp:hover{border-color:var(--seen-border)}
+.sp .n{font-family:var(--mono); font-size:20px; color:var(--rule)}
+.sp .lb{font-family:var(--mono); font-size:11px; letter-spacing:.04em}
+.sp .hd{display:flex; justify-content:space-between; align-items:center}
+.sp[data-seen="1"]{background:var(--seen); border-color:var(--seen-border)}
+.sp[data-here="1"]{background:var(--cream); border-color:var(--red)}
+.mk{width:8px; height:8px}
+.mk.proj{background:var(--gold)}
+.mk.info{border:1px solid var(--navy)}
+.mk.play{border-radius:50%; background:var(--red)}
+.mk.fin{width:16px; height:16px; border:1px solid var(--navy); border-radius:50%; display:grid; place-items:center}
+.mk.fin i{width:6px; height:6px; border-radius:50%; background:var(--navy); display:block}
+.c-gold{color:var(--gold)} .c-navy{color:var(--navy)} .c-red{color:var(--red)}
 
-  .tags{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px;}
-  .tag{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.7rem;
-    padding:3px 9px;
-    border:1px solid var(--rule);
-    color:var(--ink-soft);
-    background:var(--paper);
-  }
+.piece{position:absolute; left:0; top:0; z-index:3; width:26px; height:26px; pointer-events:none;
+  transition:transform .42s cubic-bezier(.4,1.5,.5,1)}
+.piece i{display:block; width:26px; height:26px; border-radius:50%; background:var(--red);
+  box-shadow:0 3px 0 rgba(20,23,28,.28), inset 0 -3px 0 rgba(20,23,28,.18)}
 
-  .card-foot{
-    margin-top:auto;
-    display:flex; align-items:center; justify-content:space-between;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.76rem;
-  }
-  .status{display:flex; align-items:center; gap:7px; color:var(--ink-faint);}
-  .dot{width:7px; height:7px; border-radius:50%; display:inline-block;}
-  .dot.built{background:var(--navy);}
-  .dot.wip{background:var(--gold);}
-  .card-foot a{text-decoration:none; color:var(--navy); font-weight:500;}
-  .card-foot a:hover{color:var(--gold);}
-  .card-foot .soon{color:var(--ink-faint);}
+.controls{display:flex; align-items:center; gap:18px; margin-top:22px; padding-top:20px; border-top:1px solid var(--rule)}
+.die{width:62px; height:62px; flex:0 0 auto; border:1px solid var(--ink); border-radius:8px; background:var(--bg);
+  cursor:pointer; padding:9px; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+  place-items:center; box-shadow:0 2px 0 var(--rule)}
+.die span{width:9px; height:9px; border-radius:50%; background:var(--ink); opacity:.07}
+.die span.on{opacity:1}
+@keyframes shakeA{0%{transform:rotate(0)}30%{transform:rotate(-16deg) translateY(-6px)}60%{transform:rotate(11deg)}100%{transform:rotate(0)}}
+@keyframes shakeB{0%{transform:rotate(0)}30%{transform:rotate(15deg) translateY(-7px)}60%{transform:rotate(-10deg)}100%{transform:rotate(0)}}
+.die.a{animation:shakeA .42s ease} .die.b{animation:shakeB .42s ease}
+.status{margin-top:8px; font-family:var(--mono); font-size:11px; color:var(--dim)}
 
-  /* ---------- EXPERIENCE ---------- */
-  .exp-item{
-    display:grid;
-    grid-template-columns:200px 1fr;
-    gap:24px;
-    padding:20px 0;
-    border-top:1px solid var(--rule);
-  }
-  .exp-item:first-of-type{border-top:none;}
-  @media (max-width:640px){ .exp-item{grid-template-columns:1fr; gap:6px;} }
-  .exp-meta{font-family:'IBM Plex Mono', monospace; font-size:0.76rem; color:var(--ink-faint);}
-  .exp-role h3{font-size:1.02rem; margin-bottom:4px;}
-  .exp-role .org{font-size:0.9rem; color:var(--gold); font-family:'IBM Plex Mono', monospace; margin-bottom:8px; display:block;}
-  .exp-role p{margin:0; color:var(--ink-soft); font-size:0.92rem;}
+.tray{margin-top:22px; padding-top:18px; border-top:1px solid var(--rule)}
+.trayhd{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px; font-family:var(--mono); font-size:11px; letter-spacing:.04em}
+.trayhd .l{color:var(--muted)}
+.trayhd .r{color:var(--dim)}
+.trayhd .r.done{color:var(--gold)}
+.slots{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.slot{border:1px dashed var(--rule); background:transparent; padding:9px 11px; min-height:52px}
+.slot .sn{font-family:var(--serif); font-size:13px; line-height:1.25; color:var(--faint)}
+.slot .sr{margin-top:3px; font-family:var(--mono); font-size:9.5px; line-height:1.4; color:#C0C4CB}
+.slot.got{border-style:solid; border-color:var(--seen-border); background:var(--cream)}
+.slot.got .sn{color:var(--ink)}
+.slot.got .sr{color:var(--gold)}
+.chips{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; font-family:var(--mono); font-size:9.5px}
+.chips span{padding:3px 8px; border:1px solid var(--rule); color:var(--muted); opacity:.34}
+.chips span.on{opacity:1}
 
-  /* ---------- SKILLS ---------- */
-  .skill-grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:24px;
-  }
-  @media (max-width:860px){ .skill-grid{grid-template-columns:repeat(2, 1fr);} }
-  @media (max-width:480px){ .skill-grid{grid-template-columns:1fr;} }
-  .skill-col .eyebrow{display:block; margin-bottom:12px;}
-  .skill-col ul{list-style:none; margin:0; padding:0;}
-  .skill-col li{
-    font-size:0.92rem; color:var(--ink-soft);
-    padding:6px 0; border-top:1px solid var(--rule);
-  }
-  .skill-col li:first-of-type{border-top:none;}
+.cardcol{display:flex; flex-direction:column; background:var(--bg); padding:0}
+.cardcol .hd{font-family:var(--mono); font-size:11px; color:var(--dim)}
+.card{margin-top:16px; border:1px solid var(--rule); background:var(--panel); padding:22px;
+  display:flex; flex-direction:column; flex:1; min-height:430px}
+.card .kick{font-family:var(--mono); font-size:11px; color:var(--gold)}
+.card h2{margin:10px 0 0; font-size:22px; line-height:1.22}
+.card .body{margin:14px 0 0; font-size:14px; line-height:1.65; color:var(--muted)}
+.card .xr{padding:14px 0; border-top:1px solid var(--rule)}
+.card .xr .top{display:flex; align-items:baseline; justify-content:space-between; gap:16px}
+.card .xr .org{font-family:var(--serif); font-weight:600; font-size:15px}
+.card .xr .yr{font-family:var(--mono); font-size:10.5px; color:var(--dim); white-space:nowrap}
+.card .xr .rl{margin-top:3px; font-family:var(--mono); font-size:10.5px; letter-spacing:.03em; color:var(--gold)}
+.card .xr .nt{margin-top:7px; font-size:13.5px; line-height:1.6; color:var(--muted)}
+.card .end{margin-top:auto; padding-top:20px; border-top:1px solid var(--rule)}
+.card .meta{font-family:var(--mono); font-size:10.5px; line-height:1.7; color:var(--dim)}
+.card .act{margin-top:10px; font-family:var(--mono); font-size:11px; color:var(--navy)}
+.cardfoot{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:14px}
+.cardfoot .loc{font-family:var(--mono); font-size:10.5px; color:var(--dim)}
 
-  /* ---------- CONTACT ---------- */
-  #contact{border-bottom:none;}
-  .contact-row{
-    display:flex; flex-wrap:wrap; gap:16px 34px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.92rem;
-  }
-  .contact-row a{display:inline-flex; align-items:center; gap:9px; text-decoration:none; color:var(--ink); border-bottom:1px solid var(--rule); padding-bottom:3px;}
-  .contact-row a:hover{color:var(--gold); border-color:var(--gold);}
-  .contact-row svg{width:18px; height:18px; flex-shrink:0;}
-
-  footer{
-    padding:26px 0 40px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.72rem;
-    color:var(--ink-faint);
-  }
-
-  /* reveal on scroll */
-  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
-  .reveal.in{opacity:1; transform:none;}
-
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    .reveal{opacity:1; transform:none; transition:none;}
-    .card{transition:none;}
-  }
+@media (max-width:900px){
+  .boardgrid{grid-template-columns:1fr; gap:28px}
+  .prow{grid-template-columns:1fr auto; gap:6px 16px}
+  .prow .pdesc{grid-column:1/-1; order:3}
+  .prow .pstack{order:4; grid-column:1; font-size:10.5px; color:var(--dim)}
+  .prow .plink{order:2}
+  .xrow,.trow{grid-template-columns:1fr; gap:6px}
+  .card{min-height:0}
+}
+@media (max-width:620px){
+  .track{grid-template-columns:repeat(2,1fr); grid-auto-rows:92px; gap:10px}
+  .piece{display:none}
+  .sp[data-here="1"]::after{content:''; position:absolute; top:9px; right:9px; width:12px; height:12px;
+    border-radius:50%; background:var(--red); box-shadow:0 0 0 3px rgba(140,59,59,.18)}
+  .slots{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
-<body>
+<body data-view="resume">
 
-<nav>
-  <div class="wrap">
-    <span class="nav-name">JAMES LI</span>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="nav-social">
-        <a href="mailto:jl514@fordham.edu" aria-label="Email">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5l8.5 6.8 8.5-6.8"/></svg>
-        </a>
-        <a href="https://linkedin.com/in/lijames663" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM.5 21h4.4V7.7H.5V21zM8.4 7.7h4.2v1.83h.06c.59-1.08 2.02-2.22 4.16-2.22 4.45 0 5.27 2.85 5.27 6.56V21h-4.4v-6.29c0-1.5-.03-3.43-2.11-3.43-2.11 0-2.44 1.63-2.44 3.32V21H8.4V7.7z"/></svg>
-        </a>
-        <a href="https://github.com/lijames9" target="_blank" rel="noopener" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
-        </a>
+<div class="topbar"><div class="wrap">
+  <span class="name">JAMES LI</span>
+  <span class="sub">QUANTITATIVE RESEARCH · NEW YORK</span>
+  <button class="btn" id="toResume" style="margin-left:auto; display:none">Résumé</button>
+</div></div>
+
+<main class="wrap">
+
+  <!-- ═══ résumé view (default) ═══ -->
+  <section class="resume" id="resume">
+    <div class="banner" id="banner">
+      <div>
+        <div class="k">FINISH REACHED · SPACE 12</div>
+        <p id="bannerText"></p>
       </div>
+      <button class="btn" id="playAgain">Play again</button>
     </div>
-  </div>
-</nav>
 
-<header class="hero">
-  <svg class="hero-spark" viewBox="0 0 1080 360" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path id="ou-path" fill="none" stroke="#9C6E1F" stroke-width="1.4" stroke-opacity="0.55"/>
-    <line x1="0" y1="200" x2="1080" y2="200" stroke="#C7CBD1" stroke-width="1" stroke-dasharray="2 6" opacity="0.7"/>
-    <circle id="ou-dot" r="4" fill="#9C6E1F"/>
-  </svg>
-  <div class="wrap hero-inner">
-    <span class="eyebrow">dSₜ = θ(μ − Sₜ)dt + σdWₜ</span>
-    <h1 class="title">The math underneath the market.</h1>
-    <p class="hero-sub">James Li: quantitative research, where stochastic models meet the machinery that makes them tradeable.</p>
-    <div class="ticker">
-      <span>M.S. QUANT FINANCE, FORDHAM UNIVERSITY</span>
-      <span>B.A.SC ENGINEERING SCIENCE, U OF TORONTO</span>
-      <span>TORONTO → NEW YORK</span>
+    <h1>James Li</h1>
+    <div class="idline">
+      <span class="role">QUANTITATIVE RESEARCH · NEW YORK</span>
+      <span class="div"></span>
+      <div class="icons" id="iconsTop"></div>
+      <a class="btn cv" href="JL Resume.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M4.5 19.5h15"/></svg>
+        Download CV
+      </a>
     </div>
-  </div>
-</header>
 
-<main>
+    <p class="lede">M.S. Quantitative Finance at Fordham's Gabelli School of Business; B.A.Sc. in Engineering Science from the University of Toronto, concentration in mathematics, statistics, and finance, minor in AI. Most interested in quantitative research: building models that hold up when you backtest and stress them, not just when you first fit them.</p>
 
-  <section id="about">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">01 / ABOUT</span></div>
-      <p class="reveal">
-        My background sits at the intersection of <strong>engineering, applied statistics, and finance</strong> with
-        a B.A.Sc. in Engineering Science from the University of Toronto (concentration in mathematics, statistics,
-        and finance, minor in AI), now an M.S. in Quantitative Finance at Fordham's Gabelli School of Business.
-        I'm most interested in <strong>quantitative research</strong>: building models that hold up when you
-        backtest and stress them, not just when you first fit them. The projects below are where I try to prove
-        that, written in Python and C++, with the statistics shown alongside the code rather than hidden behind it.
-      </p>
-      <p class="reveal">
-        Outside of work: video games, running, and baking.
-      </p>
+    <h2>Projects</h2>
+    <div class="rows" id="projRows"></div>
+
+    <h2>Experience</h2>
+    <div class="rows" id="expRows"></div>
+
+    <h2 style="margin-top:32px">Technical</h2>
+    <div class="rows" id="techRows"></div>
+
+    <div class="foot">
+      <span class="sig">JLI663.COM</span>
+      <button class="btn" id="toBoard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="8" cy="16" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.3" fill="currentColor" stroke="none"/></svg>
+        Roll for the board
+      </button>
     </div>
   </section>
 
-  <section id="projects">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">02 / PROJECTS</span></div>
-      <div class="project-grid">
+  <!-- ═══ board view ═══ -->
+  <section class="board" id="board">
+    <div class="boardgrid">
+      <div>
+        <div class="track" id="track"></div>
 
-        <div class="card reveal">
-          <span class="eyebrow">BS = (1/N) Σ (p_i − o_i)²</span>
-          <h3>NBA Betting Market Efficiency Model</h3>
-          <p>Logistic regression and gradient-boosting models predicting NBA game outcomes from leakage-safe
-          rolling team-performance and injury-absence features, benchmarked against de-vigged sportsbook
-          lines via Brier score, log-loss, and calibration. A backtest on a held-out final season, run
-          through a custom C++ engine, found no configuration with a real, validated edge against
-          closing or opening lines. Market efficiency held up under testing.</p>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">C++</span>
-            <span class="tag">Logistic Regression</span><span class="tag">Backtesting</span>
+        <div class="controls">
+          <div class="die" id="die" role="button" tabindex="0" aria-label="Roll the die">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
           </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot built"></span>Built</span>
-            <a href="https://github.com/lijames9/outcome_predictor" target="_blank" rel="noopener">View on GitHub →</a>
+          <div>
+            <button class="btn" id="rollBtn">Roll &amp; move</button>
+            <div class="status" id="status">Click a space, or roll the die</div>
           </div>
         </div>
 
-        <div class="card reveal">
-          <span class="eyebrow">C = e^(−rT) E[(A_T − K)⁺]</span>
-          <h3>Stochastic Modeling &amp; Asian Option Pricer</h3>
-          <p>Monte Carlo pricer for path-dependent derivatives (Asian, barrier options) using GBM simulation,
-          benchmarked against Black–Scholes closed-form solutions, with 95% confidence interval accuracy
-          checks and pathwise Greek estimation.</p>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">NumPy</span><span class="tag">SciPy</span>
-            <span class="tag">Monte Carlo</span>
+        <div class="tray">
+          <div class="trayhd">
+            <span class="l">COLLECTED</span>
+            <span class="r" id="collected"></span>
           </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot built"></span>Built</span>
-            <a href="https://github.com/lijames9" target="_blank" rel="noopener">View on GitHub →</a>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="eyebrow">max (wᵀμ − r_f) / √(wᵀΣw)</span>
-          <h3>Equity Portfolio Optimizer</h3>
-          <p>Dual-objective optimizer built in MATLAB with Gurobi, constructing an equity portfolio that
-          maximizes Sharpe ratio while minimizing turnover, balancing risk-adjusted return against
-          transaction costs and portfolio churn using historical factor and asset performance data.</p>
-          <div class="tags">
-            <span class="tag">MATLAB</span><span class="tag">Gurobi</span><span class="tag">Optimization</span>
-            <span class="tag">Sharpe Ratio</span>
-          </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot built"></span>Built</span>
-            <a href="https://github.com/lijames9/PortfolioOptimizer" target="_blank" rel="noopener">View on GitHub →</a>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="eyebrow">MAE = (1/n) Σ |y_i − ŷ_i|</span>
-          <h3>Grocery Price Predictor</h3>
-          <p>Monthly price forecasting across seven Canadian grocery categories using Statistics Canada data
-          (2017-2025), CPI, and Toronto weather as external features. RidgeCV, LassoCV, and RandomForest
-          models with three-month price-lag features, evaluated by weighted MAE; RandomForest cut error
-          65% versus a historical-average baseline.</p>
-          <div class="tags">
-            <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">RandomForest</span>
-            <span class="tag">Time Series</span>
-          </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot built"></span>Built</span>
-            <a href="https://github.com/lijames9/GroceryPricePredictor" target="_blank" rel="noopener">View on GitHub →</a>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="eyebrow">dSₜ = θ(μ − Sₜ)dt + σdWₜ</span>
-          <h3>Statistical Arbitrage Engine</h3>
-          <p>Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair
-          selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based
-          position sizing, backtested on an event-driven simulator.</p>
-          <div class="tags">
-            <span class="tag">C++</span><span class="tag">Eigen</span><span class="tag">Kalman Filter</span>
-            <span class="tag">GARCH</span><span class="tag">Cointegration</span>
-          </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot wip"></span>In progress</span>
-            <span class="soon">repo coming soon</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="eyebrow">CVaRα(X) = E[X | X ≤ VaRα(X)]</span>
-          <h3>Portfolio Tail-Risk Engine</h3>
-          <p>Copula-based VaR/CVaR engine in C++ comparing Gaussian, Student-t, and Clayton copulas over
-          GARCH-filtered marginals. Monte Carlo and historical simulation, backtested against realized
-          breaches with Kupiec and Christoffersen tests.</p>
-          <div class="tags">
-            <span class="tag">C++</span><span class="tag">Copulas</span><span class="tag">Monte Carlo</span>
-            <span class="tag">GARCH</span><span class="tag">Backtesting</span>
-          </div>
-          <div class="card-foot">
-            <span class="status"><span class="dot wip"></span>In progress</span>
-            <span class="soon">repo coming soon</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">03 / EXPERIENCE</span></div>
-
-      <div class="exp-item reveal">
-        <div class="exp-meta">SEP 2025 → APR 2026<br>Toronto, Canada</div>
-        <div class="exp-role">
-          <span class="org">FIDELITY INVESTMENTS</span>
-          <h3>Product Researcher, Finance &amp; Corporate Services</h3>
-          <p>Built an AI pipeline automating QA for multilingual financial documents, integrating parsing
-          and semantic validation for unstructured fund documentation, reaching 96% accuracy and 99.6% recall
-          across 1,500+ documents.</p>
+          <div class="slots" id="slots"></div>
+          <div class="chips" id="chips"></div>
         </div>
       </div>
 
-      <div class="exp-item reveal">
-        <div class="exp-meta">AUG 2024 → AUG 2025<br>Toronto, Canada</div>
-        <div class="exp-role">
-          <span class="org">VENA SOLUTIONS</span>
-          <h3>Associate Solutions Manager, PreSales</h3>
-          <p>Developed Excel proof-of-concept solutions supporting $1M+ USD in ARR for a FinTech SaaS
-          client; used Power BI and SQL to turn static reports into dynamic insights, contributing to a
-          65% win rate.</p>
+      <div class="cardcol">
+        <div class="hd">CARD DRAWN</div>
+        <div class="card" id="card"></div>
+        <div class="cardfoot">
+          <div class="icons" id="iconsCard"></div>
+          <span class="loc">Toronto → New York</span>
         </div>
-      </div>
-
-      <div class="exp-item reveal">
-        <div class="exp-meta">MAY 2023 → APR 2024<br>Toronto, Canada</div>
-        <div class="exp-role">
-          <span class="org">MORLAB, UNIVERSITY OF TORONTO</span>
-          <h3>Machine Learning Research Intern</h3>
-          <p>Trained XGBoost and Random Forest models to predict transplant patient survival; used Bayesian
-          hyperparameter optimization to reach an AUC of 0.70, under Professor Dionne Aleman.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">04 / CAPABILITIES</span></div>
-      <div class="skill-grid">
-        <div class="skill-col reveal">
-          <span class="eyebrow">LANGUAGES</span>
-          <ul><li>C++</li><li>Python</li><li>SQL</li><li>MATLAB</li><li>R</li></ul>
-        </div>
-        <div class="skill-col reveal">
-          <span class="eyebrow">LIBRARIES</span>
-          <ul><li>NumPy / Pandas</li><li>scikit-learn</li><li>SciPy</li><li>CVXPY</li><li>Eigen</li></ul>
-        </div>
-        <div class="skill-col reveal">
-          <span class="eyebrow">QUANT METHODS</span>
-          <ul><li>Monte Carlo Simulation</li><li>Black–Scholes</li><li>VaR / CVaR</li><li>Options &amp; Futures Pricing</li><li>Greeks</li></ul>
-        </div>
-        <div class="skill-col reveal">
-          <span class="eyebrow">TOOLING</span>
-          <ul><li>Git</li><li>Excel / Power BI</li><li>Jupyter</li><li>MySQL / Postgres</li></ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">05 / CONTACT</span></div>
-      <div class="contact-row reveal">
-        <a href="mailto:jl514@fordham.edu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5l8.5 6.8 8.5-6.8"/></svg>
-          jl514@fordham.edu
-        </a>
-        <a href="https://linkedin.com/in/lijames663" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM.5 21h4.4V7.7H.5V21zM8.4 7.7h4.2v1.83h.06c.59-1.08 2.02-2.22 4.16-2.22 4.45 0 5.27 2.85 5.27 6.56V21h-4.4v-6.29c0-1.5-.03-3.43-2.11-3.43-2.11 0-2.44 1.63-2.44 3.32V21H8.4V7.7z"/></svg>
-          LinkedIn
-        </a>
-        <a href="https://github.com/lijames9" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
-          GitHub
-        </a>
       </div>
     </div>
   </section>
 
 </main>
 
-<footer>
-  <div class="wrap">New York, NY · Updated 2026</div>
-</footer>
-
 <script>
-  // Deterministic OU-process sparkline for the hero backdrop
-  (function(){
-    var path = document.getElementById('ou-path');
-    var dot = document.getElementById('ou-dot');
-    var w = 1080, h = 360, mid = 200;
-    var n = 140;
-    var theta = 0.18, mu = 0, sigma = 14;
-    var pts = [];
-    var s = 40; // seed start offset
-    var x = 30;
-    for (var i = 0; i < n; i++){
-      // simple deterministic pseudo-random via sine layering (no Math.random for reproducibility)
-      var noise = Math.sin(i*0.7)*0.6 + Math.sin(i*1.9+1.3)*0.3 + Math.sin(i*3.1+2.1)*0.1;
-      x = x + theta*(mu - x) + sigma*noise*0.5;
-      pts.push(x);
-    }
-    var d = '';
-    for (var j = 0; j < pts.length; j++){
-      var px = (j/(pts.length-1)) * w;
-      var py = mid - pts[j];
-      d += (j===0? 'M':'L') + px.toFixed(1) + ',' + py.toFixed(1) + ' ';
-    }
-    path.setAttribute('d', d);
+(function () {
+  'use strict';
 
-    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduceMotion){
-      var len = path.getTotalLength();
-      var t0 = null;
-      var duration = 9000;
-      function animate(ts){
-        if (!t0) t0 = ts;
-        var progress = ((ts - t0) % duration) / duration;
-        var p = path.getPointAtLength(progress * len);
-        dot.setAttribute('cx', p.x);
-        dot.setAttribute('cy', p.y);
-        requestAnimationFrame(animate);
+  /* ── data ─────────────────────────────────── */
+  var CV = 'JL Resume.pdf';
+  var GH = 'https://github.com/lijames9';
+
+  var projects = [
+    { name:'NBA Betting Market Efficiency Model', desc:'Leakage-safe features vs de-vigged closing lines; no validated edge.', stack:'PYTHON · C++', repo:GH + '/outcome_predictor' },
+    { name:'Stochastic Modeling & Asian Option Pricer', desc:'Monte Carlo pricer for path-dependent derivatives, pathwise Greeks.', stack:'PYTHON', repo:null },
+    { name:'Equity Portfolio Optimizer', desc:'Sharpe maximization against turnover and transaction costs.', stack:'MATLAB', repo:GH + '/PortfolioOptimizer' },
+    { name:'Grocery Price Predictor', desc:'RandomForest cut weighted MAE 65% versus a historical baseline.', stack:'PYTHON', repo:GH + '/GroceryPricePredictor' },
+    { name:'Statistical Arbitrage Engine', desc:'Cointegration selection, Kalman hedge ratios, GARCH vol, VaR sizing.', stack:'C++', repo:null, wip:true },
+    { name:'Portfolio Tail-Risk Engine', desc:'Copula VaR/CVaR over GARCH marginals; Kupiec and Christoffersen tests.', stack:'C++', repo:null, wip:true }
+  ];
+
+  var experience = [
+    { when:'SEP 2025 → APR 2026', what:'Product Researcher — Fidelity Investments', note:'AI pipeline automating QA for multilingual financial documents: 96% accuracy, 99.6% recall across 1,500+ documents.' },
+    { when:'AUG 2024 → AUG 2025', what:'Associate Solutions Manager — Vena Solutions', note:'Excel proof-of-concept solutions supporting $1M+ USD in ARR; contributed to a 65% win rate.' },
+    { when:'MAY 2023 → APR 2024', what:'Machine Learning Research Intern — MoRLab, U of T', note:'XGBoost and Random Forest survival models; Bayesian hyperparameter optimization reached AUC 0.70.' }
+  ];
+
+  var technical = [
+    ['LANGUAGES','C++, Python, SQL, MATLAB, R'],
+    ['LIBRARIES','NumPy/Pandas, scikit-learn, SciPy, CVXPY, Eigen'],
+    ['METHODS','Monte Carlo simulation, Black–Scholes, VaR/CVaR, options and futures pricing, Greeks'],
+    ['TOOLING','Git, Excel/Power BI, Jupyter, MySQL/Postgres']
+  ];
+
+  /* card content, indexed as in the mockup */
+  var tiles = [
+    { kicker:'START', title:'The math underneath the market.', body:'James Li: quantitative research, where stochastic models meet the machinery that makes them tradeable. Twelve squares: six projects, plus about, experience, capabilities, contact, and what happens off the desk. Click any square, or roll to land somewhere.', meta:'M.S. QUANT FINANCE, FORDHAM · B.A.SC ENGINEERING SCIENCE, U OF T', action:'Download CV →', href:CV },
+    { kicker:'01 · PROJECT · BUILT', title:'NBA Betting Market Efficiency Model', body:'Logistic regression and gradient-boosting models predicting NBA game outcomes from leakage-safe rolling team-performance and injury-absence features, benchmarked against de-vigged sportsbook lines via Brier score, log-loss, and calibration. A backtest on a held-out final season, run through a custom C++ engine, found no configuration with a real, validated edge against closing or opening lines. Market efficiency held up under testing.', meta:'PYTHON · SCIKIT-LEARN · C++ · BACKTESTING', action:'View on GitHub →', href:GH + '/outcome_predictor' },
+    { kicker:'02 · PROJECT · BUILT', title:'Stochastic Modeling & Asian Option Pricer', body:'Monte Carlo pricer for path-dependent derivatives (Asian, barrier options) using GBM simulation, benchmarked against Black–Scholes closed-form solutions, with 95% confidence interval accuracy checks and pathwise Greek estimation.', meta:'PYTHON · NUMPY · SCIPY · MONTE CARLO', action:'Not yet public' },
+    { kicker:'03 · PROJECT · BUILT', title:'Equity Portfolio Optimizer', body:'Dual-objective optimizer built in MATLAB with Gurobi, constructing an equity portfolio that maximizes Sharpe ratio while minimizing turnover, balancing risk-adjusted return against transaction costs and portfolio churn using historical factor and asset performance data.', meta:'MATLAB · GUROBI · OPTIMIZATION · SHARPE RATIO', action:'View on GitHub →', href:GH + '/PortfolioOptimizer' },
+    { kicker:'04 · PROJECT · BUILT', title:'Grocery Price Predictor', body:'Monthly price forecasting across seven Canadian grocery categories using Statistics Canada data (2017-2025), CPI, and Toronto weather as external features. RidgeCV, LassoCV, and RandomForest models with three-month price-lag features, evaluated by weighted MAE; RandomForest cut error 65% versus a historical-average baseline.', meta:'PYTHON · SCIKIT-LEARN · TIME SERIES', action:'View on GitHub →', href:GH + '/GroceryPricePredictor' },
+    { kicker:'05 · PROJECT · IN PROGRESS', title:'Statistical Arbitrage Engine', body:'Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based position sizing, backtested on an event-driven simulator.', meta:'C++ · EIGEN · KALMAN FILTER · GARCH', action:'Repo coming soon' },
+    { kicker:'06 · PROJECT · IN PROGRESS', title:'Portfolio Tail-Risk Engine', body:'Copula-based VaR/CVaR engine in C++ comparing Gaussian, Student-t, and Clayton copulas over GARCH-filtered marginals. Monte Carlo and historical simulation, backtested against realized breaches with Kupiec and Christoffersen tests.', meta:'C++ · COPULAS · MONTE CARLO · GARCH', action:'Repo coming soon' },
+    { kicker:'OFF THE DESK', title:'Running, baking, and Minecraft', body:'I run distance — half marathon so far, working toward a full. I bake bread most weekends, mostly sourdough. And I play a lot of Minecraft — more hours than I would like to report.', meta:'LONGEST RUN 21.1 KM · STARTER 14 MONTHS · PLAYING MINECRAFT', action:'' },
+    { kicker:'CONTACT', title:'jl514@fordham.edu', body:'Seeking quantitative research and trading internships. Based in New York, from Toronto.', meta:'LINKEDIN /LIJAMES663 · GITHUB /LIJAMES9', action:'Download CV →', href:CV },
+    { kicker:'ABOUT', title:'Engineering, applied statistics, and finance', body:"A B.A.Sc. in Engineering Science from the University of Toronto — concentration in mathematics, statistics, and finance, minor in AI — now an M.S. in Quantitative Finance at Fordham's Gabelli School of Business. I'm most interested in quantitative research: building models that hold up when you backtest and stress them, not just when you first fit them.", meta:'TORONTO → NEW YORK', action:'' },
+    { kicker:'CAPABILITIES', title:'C++, Python, SQL, MATLAB, R', body:'Libraries: NumPy/Pandas, scikit-learn, SciPy, CVXPY, Eigen. Quant methods: Monte Carlo simulation, Black–Scholes, VaR/CVaR, options and futures pricing, Greeks. Tooling: Git, Excel/Power BI, Jupyter, MySQL/Postgres.', meta:'LANGUAGES · LIBRARIES · METHODS · TOOLING', action:'' },
+    { kicker:'EXPERIENCE', title:'Three roles, research to delivery', rows:[
+        { org:'Fidelity Investments', role:'PRODUCT RESEARCHER', years:'2025 — 2026', note:'AI pipeline automating QA for multilingual financial documents. 96% accuracy, 99.6% recall across 1,500+ documents.' },
+        { org:'Vena Solutions', role:'ASSOCIATE SOLUTIONS MANAGER', years:'2024 — 2025', note:'Excel proof-of-concept solutions supporting $1M+ USD in ARR, contributing to a 65% win rate.' },
+        { org:'MoRLab, University of Toronto', role:'ML RESEARCH INTERN', years:'2023 — 2024', note:'XGBoost and Random Forest survival models, tuned by Bayesian search to AUC 0.70.' }
+      ], meta:'2023 → 2026 · TORONTO', action:'Full experience →' }
+  ];
+
+  /* board: 12 spaces, snaking 4×3 */
+  var spaceToTile = [0,1,2,3,4,5,6,9,10,11,7,8];
+  var spaceCol    = [0,1,2,3,3,2,1,0,0,1,2,3];
+  var spaceRow    = [0,0,0,0,1,1,1,1,2,2,2,2];
+  var spaceLabel  = ['START','PROJECT','PROJECT','PROJECT','PROJECT','PROJECT','PROJECT',
+                     'ABOUT','SKILLS','EXPERIENCE','OFF THE DESK','FINISH · CONTACT'];
+  var spaceKind   = ['fin','proj','proj','proj','proj','proj','proj','info','info','info','play','fin'];
+
+  var projSlots   = [1,2,3,4,5,6];
+  var projShort   = ['NBA Market Efficiency','Asian Option Pricer','Equity Optimizer','Grocery Price Predictor','Statistical Arbitrage','Portfolio Tail Risk'];
+  var projResult  = ['NO VALIDATED EDGE VS CLOSING LINES','MC PRICES INSIDE BLACK–SCHOLES 95% CI','SHARPE MAXIMIZED AGAINST TURNOVER','−65% WEIGHTED MAE VS BASELINE','IN PROGRESS','IN PROGRESS'];
+  var chipSpaces  = [[0,'START'],[7,'ABOUT'],[8,'SKILLS'],[9,'EXPERIENCE'],[10,'OFF THE DESK'],[11,'FINISH']];
+
+  var pipFaces = { 1:[4], 2:[0,6], 3:[0,4,6], 4:[0,2,5,7], 5:[0,2,4,5,7], 6:[0,1,2,5,6,7] };
+
+  /* ── state ────────────────────────────────── */
+  var st = { view:'resume', at:0, face:0, rolls:0, finished:false,
+             seen:[true,false,false,false,false,false,false,false,false,false,false,false] };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var pad = function (n) { return n < 10 ? '0' + n : String(n); };
+  var esc = function (s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+
+  var ICONS = {
+    mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="M3.5 6.5l8.5 6.8 8.5-6.8"/></svg>',
+    li:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM.5 21h4.4V7.7H.5V21zM8.4 7.7h4.2v1.83h.06c.59-1.08 2.02-2.22 4.16-2.22 4.45 0 5.27 2.85 5.27 6.56V21h-4.4v-6.29c0-1.5-.03-3.43-2.11-3.43-2.11 0-2.44 1.63-2.44 3.32V21H8.4V7.7z"/></svg>',
+    gh:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>'
+  };
+  var contactHTML =
+    '<a href="mailto:jl514@fordham.edu" aria-label="Email">' + ICONS.mail + '</a>' +
+    '<a href="https://linkedin.com/in/lijames663" aria-label="LinkedIn" target="_blank" rel="noopener">' + ICONS.li + '</a>' +
+    '<a href="' + GH + '" aria-label="GitHub" target="_blank" rel="noopener">' + ICONS.gh + '</a>';
+
+  /* ── static render: résumé ────────────────── */
+  $('iconsTop').innerHTML = contactHTML;
+  $('iconsCard').innerHTML = contactHTML;
+
+  $('projRows').innerHTML = projects.map(function (p) {
+    var link = p.repo
+      ? '<a class="plink" href="' + p.repo + '" target="_blank" rel="noopener">REPO ↗</a>'
+      : '<span class="plink soon">' + (p.wip ? 'IN PROGRESS' : 'NOT YET PUBLIC') + '</span>';
+    return '<div class="prow"><span class="pname">' + esc(p.name) + '</span>' +
+           '<span class="pdesc">' + esc(p.desc) + '</span>' +
+           '<span class="pstack">' + esc(p.stack) + '</span>' + link + '</div>';
+  }).join('');
+
+  $('expRows').innerHTML = experience.map(function (x) {
+    return '<div class="xrow"><span class="when">' + esc(x.when) + '</span>' +
+           '<div><div class="what">' + esc(x.what) + '</div>' +
+           '<p class="note">' + esc(x.note) + '</p></div></div>';
+  }).join('');
+
+  $('techRows').innerHTML = technical.map(function (t) {
+    return '<div class="trow"><span class="tk">' + t[0] + '</span>' +
+           '<span class="tv">' + esc(t[1]) + '</span></div>';
+  }).join('');
+
+  /* ── static render: board track ───────────── */
+  var track = $('track');
+  var frag = '';
+  for (var i = 0; i < 12; i++) {
+    var kind = spaceKind[i];
+    var cls = kind === 'proj' ? 'c-gold' : (kind === 'play' ? 'c-red' : 'c-navy');
+    var mk = kind === 'fin'
+      ? '<span class="mk fin"><i></i></span>'
+      : '<span class="mk ' + kind + '"></span>';
+    frag += '<div class="sp" data-space="' + i + '" role="button" tabindex="0" ' +
+            'style="grid-column:' + (spaceCol[i] + 1) + '" ' +
+            'aria-label="Space ' + pad(i + 1) + ': ' + spaceLabel[i] + '">' +
+              '<div class="hd"><span class="n">' + pad(i + 1) + '</span>' + mk + '</div>' +
+              '<div class="lb ' + cls + '">' + spaceLabel[i] + '</div>' +
+            '</div>';
+  }
+  frag += '<div class="piece" id="piece"><i></i></div>';
+  track.innerHTML = frag;
+
+  $('slots').innerHTML = projSlots.map(function (_, idx) {
+    return '<div class="slot" data-slot="' + idx + '"><div class="sn"></div><div class="sr"></div></div>';
+  }).join('');
+
+  $('chips').innerHTML = chipSpaces.map(function (c) {
+    return '<span data-chip="' + c[0] + '">' + c[1] + '</span>';
+  }).join('');
+
+  /* ── dynamic render ───────────────────────── */
+  function renderCard() {
+    var t = tiles[spaceToTile[st.at]] || tiles[0];
+    var mid = t.rows
+      ? t.rows.map(function (r) {
+          return '<div class="xr"><div class="top"><span class="org">' + esc(r.org) + '</span>' +
+                 '<span class="yr">' + esc(r.years) + '</span></div>' +
+                 '<div class="rl">' + esc(r.role) + '</div>' +
+                 '<p class="nt">' + esc(r.note) + '</p></div>';
+        }).join('')
+      : '<p class="body">' + esc(t.body) + '</p>';
+    var act = t.action
+      ? (t.href
+          ? '<div class="act"><a href="' + t.href + '" target="_blank" rel="noopener">' + esc(t.action) + '</a></div>'
+          : '<div class="act">' + esc(t.action) + '</div>')
+      : '';
+    $('card').innerHTML =
+      '<div class="kick">' + esc(t.kicker) + '</div>' +
+      '<h2>' + esc(t.title) + '</h2>' + mid +
+      '<div class="end"><div class="meta">' + esc(t.meta) + '</div>' + act + '</div>';
+  }
+
+  function movePiece() {
+    var piece = $('piece');
+    var cell = track.querySelector('[data-space="' + st.at + '"]');
+    if (!piece || !cell) return;
+    piece.style.transform = 'translate(' +
+      (cell.offsetLeft + cell.offsetWidth / 2 - 13) + 'px,' +
+      (cell.offsetTop + cell.offsetHeight - 36) + 'px)';
+  }
+
+  function render() {
+    document.body.setAttribute('data-view', st.view);
+    $('toResume').style.display = st.view === 'board' ? 'inline-flex' : 'none';
+
+    for (var i = 0; i < 12; i++) {
+      var el = track.querySelector('[data-space="' + i + '"]');
+      el.setAttribute('data-seen', st.seen[i] ? '1' : '0');
+      el.setAttribute('data-here', i === st.at ? '1' : '0');
+    }
+
+    var on = pipFaces[st.face] || [];
+    var pips = $('die').children;
+    for (var p = 0; p < pips.length; p++) {
+      pips[p].className = on.indexOf(p) >= 0 ? 'on' : '';
+    }
+
+    var got = 0;
+    projSlots.forEach(function (sp, idx) {
+      var have = st.seen[sp];
+      if (have) got++;
+      var slot = $('slots').querySelector('[data-slot="' + idx + '"]');
+      slot.className = 'slot' + (have ? ' got' : '');
+      slot.querySelector('.sn').textContent = have ? projShort[idx] : 'Space ' + pad(sp + 1);
+      slot.querySelector('.sr').textContent = have ? projResult[idx] : 'NOT YET COLLECTED';
+    });
+
+    var lab = $('collected');
+    lab.textContent = got === 6 ? '6 OF 6 PROJECTS · FINISH UNLOCKED'
+                                : got + ' OF 6 PROJECTS · FINISH LOCKED';
+    lab.className = 'r' + (got === 6 ? ' done' : '');
+
+    chipSpaces.forEach(function (c) {
+      $('chips').querySelector('[data-chip="' + c[0] + '"]').className = st.seen[c[0]] ? 'on' : '';
+    });
+
+    $('banner').className = 'banner' + (st.finished ? ' on' : '');
+    renderCard();
+    movePiece();
+  }
+
+  /* ── interaction ──────────────────────────── */
+  function land(n, note) {
+    st.at = n;
+    st.seen[n] = true;
+    var count = st.seen.filter(Boolean).length;
+    var got = projSlots.filter(function (i) { return st.seen[i]; }).length;
+    $('status').textContent = note || ('Space ' + pad(n + 1) + ' · ' + count + ' of 12 seen');
+    if (n === 11) {
+      if (got === 6) {
+        st.view = 'resume'; st.finished = true;
+        $('bannerText').textContent = count === 12
+          ? 'You walked the whole board — all twelve spaces, all six projects — and landed on contact. From here it is a plain portfolio.'
+          : 'All six projects collected, and you landed on contact. The board has done its job; from here it is a plain portfolio.';
+        $('status').textContent = 'Finished · all six projects collected';
+      } else {
+        $('status').textContent = 'Finish locked · ' + got + ' of 6 projects collected';
       }
-      requestAnimationFrame(animate);
-    } else {
-      var mid2 = path.getPointAtLength(path.getTotalLength()/2);
-      dot.setAttribute('cx', mid2.x);
-      dot.setAttribute('cy', mid2.y);
     }
-  })();
+    render();
+  }
 
-  // Reveal-on-scroll
-  (function(){
-    var els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)){
-      els.forEach(function(el){ el.classList.add('in'); });
-      return;
+  track.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-space]');
+    if (el) land(Number(el.getAttribute('data-space')));
+  });
+  track.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var el = e.target.closest('[data-space]');
+    if (el) { e.preventDefault(); land(Number(el.getAttribute('data-space'))); }
+  });
+
+  function roll() {
+    var face = 1 + Math.floor(Math.random() * 6);
+    var landed = st.at >= 11 ? (st.at + face) % 12 : Math.min(st.at + face, 11);
+    var next = landed, slid = false;
+    if (st.seen[landed] && st.seen.indexOf(false) >= 0) {
+      for (var step = 1; step <= 12; step++) {
+        var cand = (landed + step) % 12;
+        if (!st.seen[cand]) { next = cand; slid = true; break; }
+      }
     }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting){
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.12});
-    els.forEach(function(el){ io.observe(el); });
-  })();
+    st.face = face;
+    st.rolls++;
+    var die = $('die');
+    die.className = 'die ' + (st.rolls % 2 ? 'a' : 'b');
+    setTimeout(function () { die.className = 'die'; }, 440);
+    land(next, slid
+      ? 'Rolled ' + face + ' · ' + pad(landed + 1) + ' already collected · slid on to ' + pad(next + 1)
+      : null);
+  }
+
+  $('die').addEventListener('click', roll);
+  $('die').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); roll(); }
+  });
+  $('rollBtn').addEventListener('click', roll);
+
+  $('toBoard').addEventListener('click', function () { st.view = 'board'; render(); window.scrollTo(0, 0); });
+  $('toResume').addEventListener('click', function () { st.view = 'resume'; render(); });
+  $('playAgain').addEventListener('click', function () {
+    st = { view:'board', at:0, face:0, rolls:0, finished:false,
+           seen:[true,false,false,false,false,false,false,false,false,false,false,false] };
+    $('status').textContent = 'Click a space, or roll the die';
+    render();
+    window.scrollTo(0, 0);
+  });
+
+  window.addEventListener('resize', movePiece);
+  render();
+})();
 </script>
-
 </body>
 </html>
