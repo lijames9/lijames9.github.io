@@ -298,8 +298,7 @@ body[data-view="board"] .resume{display:none}
     { name:'Stochastic Modeling & Asian Option Pricer', desc:'Monte Carlo pricer for path-dependent derivatives, pathwise Greeks.', stack:'PYTHON', repo:null },
     { name:'Equity Portfolio Optimizer', desc:'Sharpe maximization against turnover and transaction costs.', stack:'MATLAB', repo:GH + '/PortfolioOptimizer' },
     { name:'Grocery Price Predictor', desc:'RandomForest cut weighted MAE 65% versus a historical baseline.', stack:'PYTHON', repo:GH + '/GroceryPricePredictor' },
-    { name:'Statistical Arbitrage Engine', desc:'Cointegration selection, Kalman hedge ratios, GARCH vol, VaR sizing.', stack:'C++', repo:null, wip:true },
-    { name:'Portfolio Tail-Risk Engine', desc:'Copula VaR/CVaR over GARCH marginals; Kupiec and Christoffersen tests.', stack:'C++', repo:null, wip:true }
+    { name:'Statistical Arbitrage Engine', desc:'Cointegration selection, Kalman hedge ratios, GARCH vol, VaR sizing.', stack:'C++', repo:null, wip:true }
   ];
 
   var experience = [
@@ -309,7 +308,7 @@ body[data-view="board"] .resume{display:none}
   ];
 
   var technical = [
-    ['LANGUAGES','C++, Python, SQL, MATLAB, R'],
+    ['LANGUAGES','Python, C++, SQL, MATLAB, R'],
     ['LIBRARIES','NumPy/Pandas, scikit-learn, SciPy, CVXPY, Eigen'],
     ['METHODS','Monte Carlo simulation, Black–Scholes, VaR/CVaR, options and futures pricing, Greeks'],
     ['TOOLING','Git, Excel/Power BI, Jupyter, MySQL/Postgres']
@@ -317,17 +316,16 @@ body[data-view="board"] .resume{display:none}
 
   /* card content, indexed as in the mockup */
   var tiles = [
-    { kicker:'START', title:'The math underneath the market.', body:'James Li: quantitative research, where stochastic models meet the machinery that makes them tradeable. Twelve squares: six projects, plus about, experience, capabilities, contact, and what happens off the desk. Click any square, or roll to land somewhere.', meta:'M.S. QUANT FINANCE, FORDHAM · B.A.SC ENGINEERING SCIENCE, U OF T', action:'Download CV →', href:CV },
+    { kicker:'START', title:'The math underneath the market.', body:'James Li: quantitative research, where stochastic models meet the machinery that makes them tradeable. Eleven squares: five projects, plus about, experience, capabilities, contact, and what happens off the desk. Click any square, or roll to land somewhere.', meta:'M.S. QUANT FINANCE, FORDHAM · B.A.SC ENGINEERING SCIENCE, U OF T', action:'Download CV →', href:CV },
     { kicker:'01 · PROJECT · BUILT', title:'NBA Betting Market Efficiency Model', body:'Logistic regression and gradient-boosting models predicting NBA game outcomes from leakage-safe rolling team-performance and injury-absence features, benchmarked against de-vigged sportsbook lines via Brier score, log-loss, and calibration. A backtest on a held-out final season, run through a custom C++ engine, found no configuration with a real, validated edge against closing or opening lines. Market efficiency held up under testing.', meta:'PYTHON · SCIKIT-LEARN · C++ · BACKTESTING', action:'View on GitHub →', href:GH + '/outcome_predictor' },
     { kicker:'02 · PROJECT · BUILT', title:'Stochastic Modeling & Asian Option Pricer', body:'Monte Carlo pricer for path-dependent derivatives (Asian, barrier options) using GBM simulation, benchmarked against Black–Scholes closed-form solutions, with 95% confidence interval accuracy checks and pathwise Greek estimation.', meta:'PYTHON · NUMPY · SCIPY · MONTE CARLO', action:'Not yet public' },
     { kicker:'03 · PROJECT · BUILT', title:'Equity Portfolio Optimizer', body:'Dual-objective optimizer built in MATLAB with Gurobi, constructing an equity portfolio that maximizes Sharpe ratio while minimizing turnover, balancing risk-adjusted return against transaction costs and portfolio churn using historical factor and asset performance data.', meta:'MATLAB · GUROBI · OPTIMIZATION · SHARPE RATIO', action:'View on GitHub →', href:GH + '/PortfolioOptimizer' },
     { kicker:'04 · PROJECT · BUILT', title:'Grocery Price Predictor', body:'Monthly price forecasting across seven Canadian grocery categories using Statistics Canada data (2017-2025), CPI, and Toronto weather as external features. RidgeCV, LassoCV, and RandomForest models with three-month price-lag features, evaluated by weighted MAE; RandomForest cut error 65% versus a historical-average baseline.', meta:'PYTHON · SCIKIT-LEARN · TIME SERIES', action:'View on GitHub →', href:GH + '/GroceryPricePredictor' },
     { kicker:'05 · PROJECT · IN PROGRESS', title:'Statistical Arbitrage Engine', body:'Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based position sizing, backtested on an event-driven simulator.', meta:'C++ · EIGEN · KALMAN FILTER · GARCH', action:'Repo coming soon' },
-    { kicker:'06 · PROJECT · IN PROGRESS', title:'Portfolio Tail-Risk Engine', body:'Copula-based VaR/CVaR engine in C++ comparing Gaussian, Student-t, and Clayton copulas over GARCH-filtered marginals. Monte Carlo and historical simulation, backtested against realized breaches with Kupiec and Christoffersen tests.', meta:'C++ · COPULAS · MONTE CARLO · GARCH', action:'Repo coming soon' },
     { kicker:'OFF THE DESK', title:'Running, baking, and Minecraft', body:'I run distance — half marathon so far, working toward a full. I bake bread most weekends, mostly sourdough. And I play a lot of Minecraft — more hours than I would like to report.', meta:'LONGEST RUN 21.1 KM · STARTER 14 MONTHS · PLAYING MINECRAFT', action:'' },
     { kicker:'CONTACT', title:'jl514@fordham.edu', body:'Seeking quantitative research and trading internships. Based in New York, from Toronto.', meta:'LINKEDIN /LIJAMES663 · GITHUB /LIJAMES9', action:'Download CV →', href:CV },
     { kicker:'ABOUT', title:'Engineering, applied statistics, and finance', body:"A B.A.Sc. in Engineering Science from the University of Toronto — concentration in mathematics, statistics, and finance, minor in AI — now an M.S. in Quantitative Finance at Fordham's Gabelli School of Business. I'm most interested in quantitative research: building models that hold up when you backtest and stress them, not just when you first fit them.", meta:'TORONTO → NEW YORK', action:'' },
-    { kicker:'CAPABILITIES', title:'C++, Python, SQL, MATLAB, R', body:'Libraries: NumPy/Pandas, scikit-learn, SciPy, CVXPY, Eigen. Quant methods: Monte Carlo simulation, Black–Scholes, VaR/CVaR, options and futures pricing, Greeks. Tooling: Git, Excel/Power BI, Jupyter, MySQL/Postgres.', meta:'LANGUAGES · LIBRARIES · METHODS · TOOLING', action:'' },
+    { kicker:'CAPABILITIES', title:'Python, C++, SQL, MATLAB, R', body:'Libraries: NumPy/Pandas, scikit-learn, SciPy, CVXPY, Eigen. Quant methods: Monte Carlo simulation, Black–Scholes, VaR/CVaR, options and futures pricing, Greeks. Tooling: Git, Excel/Power BI, Jupyter, MySQL/Postgres.', meta:'LANGUAGES · LIBRARIES · METHODS · TOOLING', action:'' },
     { kicker:'EXPERIENCE', title:'Three roles, research to delivery', rows:[
         { org:'Fidelity Investments', role:'PRODUCT RESEARCHER', years:'2025 — 2026', note:'AI pipeline automating QA for multilingual financial documents. 96% accuracy, 99.6% recall across 1,500+ documents.' },
         { org:'Vena Solutions', role:'ASSOCIATE SOLUTIONS MANAGER', years:'2024 — 2025', note:'Excel proof-of-concept solutions supporting $1M+ USD in ARR, contributing to a 65% win rate.' },
@@ -335,24 +333,27 @@ body[data-view="board"] .resume{display:none}
       ], meta:'2023 → 2026 · TORONTO', action:'Full experience →' }
   ];
 
-  /* board: 12 spaces, snaking 4×3 */
-  var spaceToTile = [0,1,2,3,4,5,6,9,10,11,7,8];
-  var spaceCol    = [0,1,2,3,3,2,1,0,0,1,2,3];
-  var spaceRow    = [0,0,0,0,1,1,1,1,2,2,2,2];
-  var spaceLabel  = ['START','PROJECT','PROJECT','PROJECT','PROJECT','PROJECT','PROJECT',
+  /* board: 11 spaces, snaking 4×3 */
+  var spaceToTile = [0,1,2,3,4,5,8,9,10,6,7];
+  var spaceCol    = [0,1,2,3,3,2,1,0,0,1,2];
+  var spaceRow    = [0,0,0,0,1,1,1,1,2,2,2];
+  var spaceLabel  = ['START','PROJECT','PROJECT','PROJECT','PROJECT','PROJECT',
                      'ABOUT','SKILLS','EXPERIENCE','OFF THE DESK','FINISH · CONTACT'];
-  var spaceKind   = ['fin','proj','proj','proj','proj','proj','proj','info','info','info','play','fin'];
+  var spaceKind   = ['fin','proj','proj','proj','proj','proj','info','info','info','play','fin'];
 
-  var projSlots   = [1,2,3,4,5,6];
-  var projShort   = ['NBA Market Efficiency','Asian Option Pricer','Equity Optimizer','Grocery Price Predictor','Statistical Arbitrage','Portfolio Tail Risk'];
-  var projResult  = ['NO VALIDATED EDGE VS CLOSING LINES','MC PRICES INSIDE BLACK–SCHOLES 95% CI','SHARPE MAXIMIZED AGAINST TURNOVER','−65% WEIGHTED MAE VS BASELINE','IN PROGRESS','IN PROGRESS'];
-  var chipSpaces  = [[0,'START'],[7,'ABOUT'],[8,'SKILLS'],[9,'EXPERIENCE'],[10,'OFF THE DESK'],[11,'FINISH']];
+  var NUM_SPACES  = spaceLabel.length;
+  var LAST_SPACE  = NUM_SPACES - 1;
+
+  var projSlots   = [1,2,3,4,5];
+  var projShort   = ['NBA Market Efficiency','Asian Option Pricer','Equity Optimizer','Grocery Price Predictor','Statistical Arbitrage'];
+  var projResult  = ['NO VALIDATED EDGE VS CLOSING LINES','MC PRICES INSIDE BLACK–SCHOLES 95% CI','SHARPE MAXIMIZED AGAINST TURNOVER','−65% WEIGHTED MAE VS BASELINE','IN PROGRESS'];
+  var chipSpaces  = [[0,'START'],[6,'ABOUT'],[7,'SKILLS'],[8,'EXPERIENCE'],[9,'OFF THE DESK'],[10,'FINISH']];
 
   var pipFaces = { 1:[4], 2:[0,6], 3:[0,4,6], 4:[0,2,5,7], 5:[0,2,4,5,7], 6:[0,1,2,5,6,7] };
 
   /* ── state ────────────────────────────────── */
   var st = { view:'resume', at:0, face:0, rolls:0, finished:false,
-             seen:[true,false,false,false,false,false,false,false,false,false,false,false] };
+             seen:[true,false,false,false,false,false,false,false,false,false,false] };
 
   var $ = function (id) { return document.getElementById(id); };
   var pad = function (n) { return n < 10 ? '0' + n : String(n); };
@@ -395,7 +396,7 @@ body[data-view="board"] .resume{display:none}
   /* ── static render: board track ───────────── */
   var track = $('track');
   var frag = '';
-  for (var i = 0; i < 12; i++) {
+  for (var i = 0; i < NUM_SPACES; i++) {
     var kind = spaceKind[i];
     var cls = kind === 'proj' ? 'c-gold' : (kind === 'play' ? 'c-red' : 'c-navy');
     var mk = kind === 'fin'
@@ -454,7 +455,7 @@ body[data-view="board"] .resume{display:none}
     document.body.setAttribute('data-view', st.view);
     $('toResume').style.display = st.view === 'board' ? 'inline-flex' : 'none';
 
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < NUM_SPACES; i++) {
       var el = track.querySelector('[data-space="' + i + '"]');
       el.setAttribute('data-seen', st.seen[i] ? '1' : '0');
       el.setAttribute('data-here', i === st.at ? '1' : '0');
@@ -477,9 +478,9 @@ body[data-view="board"] .resume{display:none}
     });
 
     var lab = $('collected');
-    lab.textContent = got === 6 ? '6 OF 6 PROJECTS · FINISH UNLOCKED'
-                                : got + ' OF 6 PROJECTS · FINISH LOCKED';
-    lab.className = 'r' + (got === 6 ? ' done' : '');
+    lab.textContent = got === projSlots.length ? projSlots.length + ' OF ' + projSlots.length + ' PROJECTS · FINISH UNLOCKED'
+                                : got + ' OF ' + projSlots.length + ' PROJECTS · FINISH LOCKED';
+    lab.className = 'r' + (got === projSlots.length ? ' done' : '');
 
     chipSpaces.forEach(function (c) {
       $('chips').querySelector('[data-chip="' + c[0] + '"]').className = st.seen[c[0]] ? 'on' : '';
@@ -496,16 +497,16 @@ body[data-view="board"] .resume{display:none}
     st.seen[n] = true;
     var count = st.seen.filter(Boolean).length;
     var got = projSlots.filter(function (i) { return st.seen[i]; }).length;
-    $('status').textContent = note || ('Space ' + pad(n + 1) + ' · ' + count + ' of 12 seen');
-    if (n === 11) {
-      if (got === 6) {
+    $('status').textContent = note || ('Space ' + pad(n + 1) + ' · ' + count + ' of ' + NUM_SPACES + ' seen');
+    if (n === LAST_SPACE) {
+      if (got === projSlots.length) {
         st.view = 'resume'; st.finished = true;
-        $('bannerText').textContent = count === 12
-          ? 'You walked the whole board — all twelve spaces, all six projects — and landed on contact. From here it is a plain portfolio.'
-          : 'All six projects collected, and you landed on contact. The board has done its job; from here it is a plain portfolio.';
-        $('status').textContent = 'Finished · all six projects collected';
+        $('bannerText').textContent = count === NUM_SPACES
+          ? 'You walked the whole board — all eleven spaces, all five projects — and landed on contact. From here it is a plain portfolio.'
+          : 'All five projects collected, and you landed on contact. The board has done its job; from here it is a plain portfolio.';
+        $('status').textContent = 'Finished · all five projects collected';
       } else {
-        $('status').textContent = 'Finish locked · ' + got + ' of 6 projects collected';
+        $('status').textContent = 'Finish locked · ' + got + ' of ' + projSlots.length + ' projects collected';
       }
     }
     render();
@@ -523,11 +524,11 @@ body[data-view="board"] .resume{display:none}
 
   function roll() {
     var face = 1 + Math.floor(Math.random() * 6);
-    var landed = st.at >= 11 ? (st.at + face) % 12 : Math.min(st.at + face, 11);
+    var landed = st.at >= LAST_SPACE ? (st.at + face) % NUM_SPACES : Math.min(st.at + face, LAST_SPACE);
     var next = landed, slid = false;
     if (st.seen[landed] && st.seen.indexOf(false) >= 0) {
-      for (var step = 1; step <= 12; step++) {
-        var cand = (landed + step) % 12;
+      for (var step = 1; step <= NUM_SPACES; step++) {
+        var cand = (landed + step) % NUM_SPACES;
         if (!st.seen[cand]) { next = cand; slid = true; break; }
       }
     }
@@ -551,7 +552,7 @@ body[data-view="board"] .resume{display:none}
   $('toResume').addEventListener('click', function () { st.view = 'resume'; render(); });
   $('playAgain').addEventListener('click', function () {
     st = { view:'board', at:0, face:0, rolls:0, finished:false,
-           seen:[true,false,false,false,false,false,false,false,false,false,false,false] };
+           seen:[true,false,false,false,false,false,false,false,false,false,false] };
     $('status').textContent = 'Click a space, or roll the die';
     render();
     window.scrollTo(0, 0);
