@@ -295,10 +295,11 @@ body[data-view="board"] .resume{display:none}
 
   var projects = [
     { name:'NBA Betting Market Efficiency Model', desc:'Leakage-safe features vs de-vigged closing lines; no validated edge.', stack:'PYTHON · C++', repo:GH + '/outcome_predictor' },
-    { name:'Stochastic Modeling & Asian Option Pricer', desc:'Monte Carlo pricer for path-dependent derivatives, pathwise Greeks.', stack:'PYTHON', repo:null },
+    { name:'Stochastic Modeling & Asian Option Pricer', desc:'Team project: Monte Carlo vs closed-form pricing of Asian and barrier options, Greeks.', stack:'PYTHON', repo:GH + '/asian-option-pricer' },
     { name:'Equity Portfolio Optimizer', desc:'Sharpe maximization against turnover and transaction costs.', stack:'MATLAB', repo:GH + '/PortfolioOptimizer' },
     { name:'Grocery Price Predictor', desc:'RandomForest cut weighted MAE 65% versus a historical baseline.', stack:'PYTHON', repo:GH + '/GroceryPricePredictor' },
-    { name:'Statistical Arbitrage Engine', desc:'Cointegration selection, Kalman hedge ratios, GARCH vol, VaR sizing.', stack:'C++', repo:null, wip:true }
+    { name:'Statistical Arbitrage Engine', desc:'Cointegration selection, Kalman hedge ratios, GARCH vol, VaR sizing.', stack:'C++', repo:null, wip:true },
+    { name:'Clash Royale Win Probability & Patch Study', desc:'In progress: own API crawler; win-probability model and patch event study.', stack:'PYTHON', repo:GH + '/clash-royale-analytics' }
   ];
 
   var experience = [
@@ -318,7 +319,7 @@ body[data-view="board"] .resume{display:none}
   var tiles = [
     { kicker:'START', title:'The math underneath the market.', body:'James Li: quantitative research, where stochastic models meet the machinery that makes them tradeable. Eleven squares: five projects, plus about, experience, capabilities, contact, and what happens off the desk. Click any square, or roll to land somewhere.', meta:'M.S. QUANT FINANCE, FORDHAM · B.A.SC ENGINEERING SCIENCE, U OF T', action:'Download CV →', href:CV },
     { kicker:'01 · PROJECT · BUILT', title:'NBA Betting Market Efficiency Model', body:'Logistic regression and gradient-boosting models predicting NBA game outcomes from leakage-safe rolling team-performance and injury-absence features, benchmarked against de-vigged sportsbook lines via Brier score, log-loss, and calibration. A backtest on a held-out final season, run through a custom C++ engine, found no configuration with a real, validated edge against closing or opening lines. Market efficiency held up under testing.', meta:'PYTHON · SCIKIT-LEARN · C++ · BACKTESTING', action:'View on GitHub →', href:GH + '/outcome_predictor' },
-    { kicker:'02 · PROJECT · BUILT', title:'Stochastic Modeling & Asian Option Pricer', body:'Monte Carlo pricer for path-dependent derivatives (Asian, barrier options) using GBM simulation, benchmarked against Black–Scholes closed-form solutions, with 95% confidence interval accuracy checks and pathwise Greek estimation.', meta:'PYTHON · NUMPY · SCIPY · MONTE CARLO', action:'Not yet public' },
+    { kicker:'02 · PROJECT · BUILT', title:'Stochastic Modeling & Asian Option Pricer', body:'Four-person project (U of T, Stochastic Methods for Finance) pricing path-dependent options under GBM: Monte Carlo pricing of arithmetic Asian calls with convergence analysis across simulation counts and time steps, Euler vs Milstein discretization, Delta/Vega/Rho sensitivities, and an up-and-out barrier put. I built the arithmetic Asian Monte Carlo pricer, derived and implemented the discrete geometric Asian closed form and validated it against simulation, and wrote the introduction and those sections of the report.', meta:'PYTHON · NUMPY · SCIPY · MONTE CARLO', action:'View on GitHub →', href:GH + '/asian-option-pricer' },
     { kicker:'03 · PROJECT · BUILT', title:'Equity Portfolio Optimizer', body:'Dual-objective optimizer built in MATLAB with Gurobi, constructing an equity portfolio that maximizes Sharpe ratio while minimizing turnover, balancing risk-adjusted return against transaction costs and portfolio churn using historical factor and asset performance data.', meta:'MATLAB · GUROBI · OPTIMIZATION · SHARPE RATIO', action:'View on GitHub →', href:GH + '/PortfolioOptimizer' },
     { kicker:'04 · PROJECT · BUILT', title:'Grocery Price Predictor', body:'Monthly price forecasting across seven Canadian grocery categories using Statistics Canada data (2017-2025), CPI, and Toronto weather as external features. RidgeCV, LassoCV, and RandomForest models with three-month price-lag features, evaluated by weighted MAE; RandomForest cut error 65% versus a historical-average baseline.', meta:'PYTHON · SCIKIT-LEARN · TIME SERIES', action:'View on GitHub →', href:GH + '/GroceryPricePredictor' },
     { kicker:'05 · PROJECT · IN PROGRESS', title:'Statistical Arbitrage Engine', body:'Pairs/basket trading engine in C++: Engle–Granger and Johansen cointegration testing for pair selection, Kalman-filtered dynamic hedge ratios, GARCH(1,1) volatility forecasting, and VaR-based position sizing, backtested on an event-driven simulator.', meta:'C++ · EIGEN · KALMAN FILTER · GARCH', action:'Repo coming soon' },
@@ -346,7 +347,7 @@ body[data-view="board"] .resume{display:none}
 
   var projSlots   = [1,2,3,4,5];
   var projShort   = ['NBA Market Efficiency','Asian Option Pricer','Equity Optimizer','Grocery Price Predictor','Statistical Arbitrage'];
-  var projResult  = ['NO VALIDATED EDGE VS CLOSING LINES','MC PRICES INSIDE BLACK–SCHOLES 95% CI','SHARPE MAXIMIZED AGAINST TURNOVER','−65% WEIGHTED MAE VS BASELINE','IN PROGRESS'];
+  var projResult  = ['NO VALIDATED EDGE VS CLOSING LINES','CLOSED FORM INSIDE MC 95% CI','SHARPE MAXIMIZED AGAINST TURNOVER','−65% WEIGHTED MAE VS BASELINE','IN PROGRESS'];
   var chipSpaces  = [[0,'START'],[6,'ABOUT'],[7,'SKILLS'],[8,'EXPERIENCE'],[9,'OFF THE DESK'],[10,'FINISH']];
 
   var pipFaces = { 1:[4], 2:[0,6], 3:[0,4,6], 4:[0,2,5,7], 5:[0,2,4,5,7], 6:[0,1,2,5,6,7] };
